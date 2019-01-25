@@ -13,7 +13,11 @@ mongo = PyMongo(app)
 
 @app.route('/')
 def render_form():
-    return render_template('user_input_form.html')
+    return render_template('user_feeding_input_form.html')
+
+@app.route('/submit_feeding_data', methods=['POST'])
+def submit_feeding_data():
+    return 'SUBMITTED'
 
 if __name__ == '__main__':
     app.run(debug=True)
