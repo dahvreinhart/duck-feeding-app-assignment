@@ -56,14 +56,17 @@ def get_feeding_data_csv_download():
             'FOOD QUANTITY (g)'
         ])
 
+        # Fetch the submission objects from the database
         feedback_data = mongo.db.duck_feeding_sessions.find()
+
         for item in feedback_data:
+            # Format the created_date datetime object to something more readable
             created_date = item.get('created_date', '')
             if created_date:
-                formatted_created_date = created_date.strftime('%Y/%m/%d')
+                created_date = created_date.strftime('%Y/%m/%d')
 
             csv_writer.writerow([
-                formatted_created_date,
+                created_date,
                 item.get('feeding_time', ''),
                 item.get('location', ''),
                 item.get('number_of_ducks', ''),
@@ -72,13 +75,15 @@ def get_feeding_data_csv_download():
                 item.get('food_quantity', ''),
             ])
 
-
+    # Read the csv data back into memory so that we can delete our temp file and save disk space
     csv_data = ''
     with open("{}/{}".format(app.config['TEMP_DATA_FILES_FOLDER'], filename)) as data:
         csv_data = data.read()
 
+    # Delete the temp file once we have the csv data
     os.remove("{}/{}".format(app.config['TEMP_DATA_FILES_FOLDER'], filename))
 
+    # Return the file to the user without redirecting them
     return Response(
         csv_data,
         mimetype="text/csv",
