@@ -11,6 +11,13 @@
     <title>International Duck Feeding Habits Database</title>
   </head>
   <body>
+    <div class="container">
+      <div class="row">
+          <div class="col-md-6 col-md-offset-4">
+            <a href="{{url_for('get_feeding_data_csv_download')}}"><button class="btn btn-primary">Download Feeding Data</button></a>
+          </div>
+      </div>
+    </div>
     {% block body %}{% endblock %}
     <script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
   </body>
