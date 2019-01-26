@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, url_for, session, redirect
 from flask_pymongo import PyMongo
+from models import DuckFeedingSession
 import os
 
 # Create Flask app
@@ -13,10 +14,25 @@ mongo = PyMongo(app)
 
 @app.route('/')
 def render_form():
+    # Render base template
     return render_template('user_feeding_input_form.html')
 
 @app.route('/submit_feeding_data', methods=['POST'])
 def submit_feeding_data():
+    # Parse feeding habits submittion form data from template
+    form_data = {
+        'location': request.form['location'],
+        'feeding_time': request.form['feeding_time'],
+        'number_of_ducks': request.form['number_of_ducks'],
+        'food_type': request.form['food_type'],
+        'specific_food': request.form['specific_food'],
+        'food_quantity': request.form['food_quantity']
+    }
+
+    # Create a new feeding session object and write it to the database
+    new_feeding_session = DuckFeedingSession(form_data)
+    feedback_data = mongo.db.duck_feeding_sessions
+    feedback_data.insert(new_feeding_session.storable())
     return 'SUBMITTED'
 
 if __name__ == '__main__':
