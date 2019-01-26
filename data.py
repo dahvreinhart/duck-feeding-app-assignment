@@ -30,7 +30,7 @@ def submit_feeding_data():
         'number_of_ducks': request.form['number_of_ducks'],
         'food_type': request.form['food_type'],
         'specific_food': request.form['specific_food'],
-        'food_quantity': request.form['food_quantity']
+        'food_quantity_grams': request.form['food_quantity_grams']
     }
 
     # Create a new feeding session object and write it to the database
@@ -41,7 +41,29 @@ def submit_feeding_data():
 
 @app.route('/get_feeding_data_csv_download', methods=['GET'])
 def get_feeding_data_csv_download():
+    # Create a unique filename from the current date
     filename = "temp_data_file_{}.csv".format(datetime.now().strftime('%Y%m%d%H%M%S%f'))
+
+    # Generate a temporary csv file of feeding session data
+    generate_temp_csv(filename)
+
+    # Read the csv data back into memory so that we can delete our temp file and save disk space
+    csv_data = ''
+    with open("{}/{}".format(app.config['TEMP_DATA_FILES_FOLDER'], filename)) as data:
+        csv_data = data.read()
+
+    # Delete the temp file once we have the csv data
+    os.remove("{}/{}".format(app.config['TEMP_DATA_FILES_FOLDER'], filename))
+
+    # Return the file to the user without redirecting them
+    return Response(
+        csv_data,
+        mimetype="text/csv",
+        headers={"Content-disposition": "attachment; filename={}".format(filename)}
+     )
+
+def generate_temp_csv(filename):
+    """Generate a temp csv file and save it so that it can later be downloaded by the user"""
     with open("{}/{}".format(app.config['TEMP_DATA_FILES_FOLDER'], filename), 'w') as csvfile:
         csv_writer = csv.writer(csvfile, delimiter=',')
 
@@ -72,23 +94,8 @@ def get_feeding_data_csv_download():
                 item.get('number_of_ducks', ''),
                 item.get('food_type', ''),
                 item.get('specific_food', ''),
-                item.get('food_quantity', ''),
+                item.get('food_quantity_grams', ''),
             ])
-
-    # Read the csv data back into memory so that we can delete our temp file and save disk space
-    csv_data = ''
-    with open("{}/{}".format(app.config['TEMP_DATA_FILES_FOLDER'], filename)) as data:
-        csv_data = data.read()
-
-    # Delete the temp file once we have the csv data
-    os.remove("{}/{}".format(app.config['TEMP_DATA_FILES_FOLDER'], filename))
-
-    # Return the file to the user without redirecting them
-    return Response(
-        csv_data,
-        mimetype="text/csv",
-        headers={"Content-disposition": "attachment; filename={}".format(filename)}
-     )
 
 if __name__ == '__main__':
     app.run(debug=True)

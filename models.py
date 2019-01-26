@@ -12,7 +12,7 @@ class DuckFeedingSession():
         self.number_of_ducks = feeding_form_data.get('number_of_ducks', '')
         self.food_type = feeding_form_data.get('food_type', '')
         self.specific_food = feeding_form_data.get('specific_food', '')
-        self.food_quantity = feeding_form_data.get('food_quantity', '')
+        self.food_quantity_grams = feeding_form_data.get('food_quantity_grams', '')
 
     def storable(self):
         return self.__dict__
