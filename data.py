@@ -2,6 +2,8 @@ from flask import Flask, render_template, request, url_for, session, redirect, s
 from flask_pymongo import PyMongo
 from models import DuckFeedingSession
 from datetime import datetime
+from pytz import utc
+from apscheduler.schedulers.background import BackgroundScheduler
 import os
 import csv
 
@@ -15,6 +17,10 @@ app.config['MONGO_DBNAME'] = 'freshworks_duck_feeding_app'
 app.config['MONGO_URI'] = 'mongodb://admin:Mlab1134206`@ds145359.mlab.com:45359/freshworks_duck_feeding_app'
 app.config['TEMP_DATA_FILES_FOLDER'] = downloads_dir
 mongo = PyMongo(app)
+
+# initialize scheduler for recurring submissions
+scheduler = BackgroundScheduler(timezone=utc)
+scheduler.start()
 
 
 @app.route('/')
@@ -111,6 +117,11 @@ def generate_temp_csv(filename):
                 item.get('food_quantity_grams', ''),
                 item.get('is_recurring', ''),
             ])
+
+#@scheduler.scheduled_job(trigger='cron', hour=3, minute=30)
+@scheduler.scheduled_job(trigger='interval', seconds=30)
+def process_recurring_submissions():
+    print "RUNNING"
 
 if __name__ == '__main__':
     app.run(debug=True)
