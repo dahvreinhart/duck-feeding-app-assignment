@@ -2,7 +2,7 @@
 {% block body %}
 <div class="container">
   <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-8 offset-md-2">
       <form class="duck-feeding-data-form" method=POST action="{{url_for('submit_feeding_data')}}">
         <div class="form-row">
           <label>Location:</label>
@@ -32,7 +32,7 @@
           </div>
         </div>
         <div class="form-row">
-          <div class="col-md-4">
+          <div class="col-md-3">
             <label>Food Weight (g):</label>
             <div class="input-group">
               <input type="number" min="0" class="form-control" name="food_quantity_grams" placeholder="" required>
@@ -41,7 +41,7 @@
               </div>
             </div>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-3">
             <label>Number of Ducks Fed:</label>
             <div class="input-group">
               <input type="number" min="0" class="form-control" name="number_of_ducks" placeholder="" required>
@@ -50,12 +50,24 @@
               </div>
             </div>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-3">
             <label>Time of Feeding:</label>
             <div class="input-group">
               <input type="time" class="form-control" name="feeding_time" placeholder="" required>
               <div class="input-group-append">
                 <span class="input-group-text" id="basic-addon2" data-toggle="tooltip" data-placement="top" title="What time of day did you begin your duck feeding session?"><b>?</b></span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <label>Make Recurring?</label>
+            <div class="input-group">
+              <select class="custom-select form-control" name="make_recurring">
+                <option value="0"selected>No</option>
+                <option value="1">Yes</option>
+              </select>
+              <div class="input-group-append">
+                <span class="input-group-text" id="basic-addon2" data-toggle="tooltip" data-placement="top" title="Selecting 'yes' will place your submission on a one (1) week recurring schedule. This means, the input you submitted here will be automatically re-submitted for you once each day for the 7 days (not including the current day). This could be useful if you feed the ducks in the exact same way each day. When using this feature, don't forget to come back next week if you wish to make another submission!"><b>?</b></span>
               </div>
             </div>
           </div>
