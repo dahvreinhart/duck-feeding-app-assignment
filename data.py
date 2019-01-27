@@ -18,19 +18,25 @@ mongo = PyMongo(app)
 
 @app.route('/')
 def render_form():
+    """ Base route - home page. """
     # Render base template with input form
     return render_template('user_feeding_input_form.html')
 
-@app.route('/submit_feeding_data', methods=['POST'])
+@app.route('/submit_feeding_data', methods=['POST', 'GET'])
 def submit_feeding_data():
+    """ Handles the submission of user data from the front end form into the database. """
+    # If someone is trying to route directly to this endpoint, bump them back to the home page
+    if request.method == 'GET':
+        return redirect("/", code=302)
+
     # Parse feeding habits submittion form data from template
     form_data = {
-        'location': request.form['location'],
-        'feeding_time': request.form['feeding_time'],
-        'number_of_ducks': request.form['number_of_ducks'],
-        'food_type': request.form['food_type'],
-        'specific_food': request.form['specific_food'],
-        'food_quantity_grams': request.form['food_quantity_grams']
+        'location': request.form.get('location', ''),
+        'feeding_time': request.form.get('feeding_time', ''),
+        'number_of_ducks': request.form.get('number_of_ducks', ''),
+        'food_type': request.form.get('food_type', ''),
+        'specific_food': request.form.get('specific_food', ''),
+        'food_quantity_grams': request.form.get('food_quantity_grams', '')
     }
 
     # Create a new feeding session object and write it to the database
@@ -41,6 +47,7 @@ def submit_feeding_data():
 
 @app.route('/get_feeding_data_csv_download', methods=['GET'])
 def get_feeding_data_csv_download():
+    """ Handles the making of a csv file and the handoff of that file to the user. """
     # Create a unique filename from the current date
     filename = "temp_data_file_{}.csv".format(datetime.now().strftime('%Y%m%d%H%M%S%f'))
 
@@ -52,7 +59,7 @@ def get_feeding_data_csv_download():
     with open("{}/{}".format(app.config['TEMP_DATA_FILES_FOLDER'], filename)) as data:
         csv_data = data.read()
 
-    # Delete the temp file once we have the csv data
+    # Delete the temp file once we have the csv data to free disk space
     os.remove("{}/{}".format(app.config['TEMP_DATA_FILES_FOLDER'], filename))
 
     # Return the file to the user without redirecting them
@@ -63,7 +70,7 @@ def get_feeding_data_csv_download():
      )
 
 def generate_temp_csv(filename):
-    """Generate a temp csv file and save it so that it can later be downloaded by the user"""
+    """ Generate a temp csv file and save it so that it can later be downloaded by the user. """
     with open("{}/{}".format(app.config['TEMP_DATA_FILES_FOLDER'], filename), 'w') as csvfile:
         csv_writer = csv.writer(csvfile, delimiter=',')
 
@@ -87,6 +94,7 @@ def generate_temp_csv(filename):
             if created_date:
                 created_date = created_date.strftime('%Y/%m/%d')
 
+            # Write the data for one feeding session to a row in the csv file
             csv_writer.writerow([
                 created_date,
                 item.get('feeding_time', ''),
