@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, url_for, session, redirect, send_file, Response
 from flask_pymongo import PyMongo
 from models import DuckFeedingSession
-from datetime import datetime
+from datetime import datetime, timedelta
 from pytz import utc
 from apscheduler.schedulers.background import BackgroundScheduler
 import os
@@ -33,7 +33,7 @@ def render_form():
 @app.route('/submit_feeding_data', methods=['POST', 'GET'])
 def submit_feeding_data():
     """ Handles the submission of user data from the front end form into the database. """
-    # If someone is trying to route directly to this endpoint, bump them back to the home page
+    # If someone is trying to route directly to this endpoint, bump them back to the home page for better UX
     if request.method == 'GET':
         return redirect("/", code=302)
 
@@ -118,10 +118,32 @@ def generate_temp_csv(filename):
                 item.get('is_recurring', ''),
             ])
 
-#@scheduler.scheduled_job(trigger='cron', hour=3, minute=30)
-@scheduler.scheduled_job(trigger='interval', seconds=30)
+@scheduler.scheduled_job(trigger='cron', hour=3, minute=30)
 def process_recurring_submissions():
-    print "RUNNING"
+    """ Automatically submits duplicates of past submissions that are maked as recurring. """
+    duck_feeding_sessions = mongo.db.duck_feeding_sessions
+
+    # Get all recurring submissions thatwere created less than a week ago
+    initial_submission_cutoff = datetime.now() - timedelta(days=6)
+    recurring_submissions = duck_feeding_sessions.find({
+        'is_recurring': True,
+        'created_date': {'$gte': initial_submission_cutoff}
+    })
+
+    # Go through each recurring subscription and clone it
+    for submission in recurring_submissions:
+        # First we make the clone from the full value of the initial submission
+        new_automated_submission = DuckFeedingSession(submission)
+
+        # Now we must correct the created date for data integrity and the is_recurring property
+        # since we don't want the automated submissions to be recurring themselves
+        new_automated_submission.created_date = datetime.now()
+        new_automated_submission.is_recurring = False
+
+        # Lastly, store the cloned submission in the Database
+        duck_feeding_sessions.insert(new_automated_submission.storable())
+
+    return True
 
 if __name__ == '__main__':
     app.run(debug=True)
