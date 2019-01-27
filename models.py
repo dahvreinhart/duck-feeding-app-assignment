@@ -13,6 +13,7 @@ class DuckFeedingSession():
         self.food_type = feeding_form_data.get('food_type', '')
         self.specific_food = feeding_form_data.get('specific_food', '')
         self.food_quantity_grams = feeding_form_data.get('food_quantity_grams', '')
+        self.is_recurring = feeding_form_data.get('make_recurring', '')
 
     def storable(self):
         return self.__dict__

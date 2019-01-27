@@ -16,11 +16,13 @@ app.config['MONGO_URI'] = 'mongodb://admin:Mlab1134206`@ds145359.mlab.com:45359/
 app.config['TEMP_DATA_FILES_FOLDER'] = downloads_dir
 mongo = PyMongo(app)
 
+
 @app.route('/')
 def render_form():
     """ Base route - home page. """
     # Render base template with input form
     return render_template('user_feeding_input_form.html')
+
 
 @app.route('/submit_feeding_data', methods=['POST', 'GET'])
 def submit_feeding_data():
@@ -36,7 +38,8 @@ def submit_feeding_data():
         'number_of_ducks': request.form.get('number_of_ducks', ''),
         'food_type': request.form.get('food_type', ''),
         'specific_food': request.form.get('specific_food', ''),
-        'food_quantity_grams': request.form.get('food_quantity_grams', '')
+        'food_quantity_grams': request.form.get('food_quantity_grams', ''),
+        'make_recurring': bool(request.form.get('make_recurring', ''))
     }
 
     # Create a new feeding session object and write it to the database
@@ -44,6 +47,7 @@ def submit_feeding_data():
     feedback_data = mongo.db.duck_feeding_sessions
     feedback_data.insert(new_feeding_session.storable())
     return render_template('after_successful_submission.html')
+
 
 @app.route('/get_feeding_data_csv_download', methods=['GET'])
 def get_feeding_data_csv_download():
@@ -69,6 +73,7 @@ def get_feeding_data_csv_download():
         headers={"Content-disposition": "attachment; filename={}".format(filename)}
      )
 
+
 def generate_temp_csv(filename):
     """ Generate a temp csv file and save it so that it can later be downloaded by the user. """
     with open("{}/{}".format(app.config['TEMP_DATA_FILES_FOLDER'], filename), 'w') as csvfile:
@@ -82,7 +87,8 @@ def generate_temp_csv(filename):
             'NUMBER OF DUCKS FED',
             'FOOD TYPE',
             'SPECIFIC FOOD',
-            'FOOD QUANTITY (g)'
+            'FOOD QUANTITY (g)',
+            'CREATED FROM RECURRING SUBMISSION'
         ])
 
         # Fetch the submission objects from the database
@@ -103,6 +109,7 @@ def generate_temp_csv(filename):
                 item.get('food_type', ''),
                 item.get('specific_food', ''),
                 item.get('food_quantity_grams', ''),
+                item.get('is_recurring', ''),
             ])
 
 if __name__ == '__main__':
