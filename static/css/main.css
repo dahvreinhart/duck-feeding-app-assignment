@@ -41,3 +41,8 @@ label {
 .duck-feeding-data-form > .form-row {
   margin-bottom: 2rem;
 }
+
+.tooltip-inner {
+  max-width: 350px;
+  width: 350px;
+}

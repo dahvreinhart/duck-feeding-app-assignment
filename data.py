@@ -45,7 +45,7 @@ def submit_feeding_data():
         'food_type': request.form.get('food_type', ''),
         'specific_food': request.form.get('specific_food', ''),
         'food_quantity_grams': request.form.get('food_quantity_grams', ''),
-        'make_recurring': bool(request.form.get('make_recurring', ''))
+        'make_recurring': bool(request.form.get('make_recurring', False))
     }
 
     # Create a new feeding session object and write it to the database
