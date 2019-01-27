@@ -7,20 +7,29 @@
     <meta name="description" content="A repository of human duck-feeding habits around the world.">
     <meta name="author" content="Dahv Reinhart">
     <link href="{{url_for('static', filename='css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{url_for('static', filename='css/main.css')}}" rel="stylesheet">
     <link rel="shortcut icon" href="{{url_for('static', filename='images/favicon.ico')}}">
+    <script src="{{url_for('static', filename='js/jquery.js')}}"></script>
+    <script src="{{url_for('static', filename='js/bootstrap.bundle.min.js')}}"></script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+          $('[data-toggle="tooltip"]').tooltip();
+      });
+    </script>
     <title>International Duck Feeding Habits Database</title>
   </head>
   <body>
-    <div class="container header-container">
-      <div class="row">
-          <div class="col-md-6 col-md-offset-4">
-            <a href="{{url_for('get_feeding_data_csv_download')}}"><button class="btn btn-primary">Download Feeding Data</button></a>
-          </div>
+    <div class="overlay">
+      <div class="container header-container">
+        <div class="row">
+            <div class="col-xl">
+              <a class="csv-download-button" href="{{url_for('get_feeding_data_csv_download')}}"><button class="btn btn-success">Download Feeding Data</button></a>
+            </div>
+        </div>
+      </div>
+      <div class="body-container">
+        {% block body %}{% endblock %}
       </div>
     </div>
-    <div class="body-container">
-      {% block body %}{% endblock %}
-    </div>
-    <script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
   </body>
 </html>

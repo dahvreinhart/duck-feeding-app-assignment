@@ -1,0 +1,43 @@
+body {
+  background: url('../images/body-background.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(6,32,51,.6);
+  z-index: 2;
+}
+
+.header-container {
+  background-color: green;
+  color: blue;
+  padding: 2rem;
+  max-width: none;
+  background-color: rgba(6,32,51,.6);
+}
+
+.csv-download-button {
+  float: right;
+}
+
+label {
+  color: white;
+}
+
+.duck-feeding-data-form {
+  margin-top: 3rem;
+}
+
+.duck-feeding-data-form > .form-row {
+  margin-bottom: 2rem;
+}

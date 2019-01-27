@@ -1,36 +1,68 @@
 {% extends 'index.html' %}
 {% block body %}
 <div class="container">
-    <div class="row">
-        <div class="col-md-6 col-md-offset-4">
-            <form method=POST action="{{url_for('submit_feeding_data')}}">
-                <div class="form-group">
-                    <label>Where did you feed the ducks?</label>
-                    <input type="text" class="form-control" name="location" placeholder="1234 Broadway Street, New York City, New York, USA" required>
-                </div>
-                <div class="form-group">
-                    <label>What time did you feed the ducks?</label>
-                    <input type="time" class="form-control" name="feeding_time" placeholder="" required>
-                </div>
-                <div class="form-group">
-                    <label>How many ducks did you feed?</label>
-                    <input type="number" min="0" class="form-control" name="number_of_ducks" placeholder="" required>
-                </div>
-                <div class="form-group">
-                    <label>What type of food did you feed the ducks?</label>
-                    <input type="text" class="form-control" name="food_type" placeholder="Grain" required>
-                </div>
-                <div class="form-group">
-                    <label>What specific food did you feed the ducks?</label>
-                    <input type="text" class="form-control" name="specific_food" placeholder="Sourdough Bread Crumbs" required>
-                </div>
-                <div class="form-group">
-                    <label>How much food did you feed the ducks? (grams)</label>
-                    <input type="number" min="0" class="form-control" name="food_quantity_grams" placeholder="" required>
-                </div>
-                <button type="submit" class="btn btn-primary btn-block">Submit Feeding Data</button>
-            </form>
+  <div class="row">
+    <div class="col-md-8">
+      <form class="duck-feeding-data-form" method=POST action="{{url_for('submit_feeding_data')}}">
+        <div class="form-row">
+          <label>Location:</label>
+          <div class="input-group">
+            <input type="text" class="form-control" name="location" placeholder="1234 Broadway Street, New York City, New York, USA" required>
+            <div class="input-group-append">
+              <span class="input-group-text" id="basic-addon2" data-toggle="tooltip" data-placement="right" title="Where did you feed the ducks? Please use a full location including a street address, state/province and country."><b>?</b></span>
+            </div>
+          </div>
         </div>
+        <div class="form-row">
+          <label>Food Type:</label>
+          <div class="input-group">
+            <input type="text" class="form-control" name="food_type" placeholder="Grain" required>
+            <div class="input-group-append">
+              <span class="input-group-text" id="basic-addon2" data-toggle="tooltip" data-placement="right" title="What general type of food did you feed the ducks? This could be something like 'insects' or 'grain'."><b>?</b></span>
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <label>Specific Food Item Name:</label>
+          <div class="input-group">
+            <input type="text" class="form-control" name="specific_food" placeholder="Sourdough Bread Crumbs" required>
+            <div class="input-group-append">
+              <span class="input-group-text" id="basic-addon2" data-toggle="tooltip" data-placement="right" title="What specific food item did you feed the ducks? This could be something like 'poppy seeds' or 'dried oats'. Please include a brand name if possible."><b>?</b></span>
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col-md-4">
+            <label>Food Weight (g):</label>
+            <div class="input-group">
+              <input type="number" min="0" class="form-control" name="food_quantity_grams" placeholder="" required>
+              <div class="input-group-append">
+                <span class="input-group-text" id="basic-addon2" data-toggle="tooltip" data-placement="top" title="How much food, weighed in grams, did you feed the ducks over the course of your entire feeding session?"><b>?</b></span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <label>Number of Ducks Fed:</label>
+            <div class="input-group">
+              <input type="number" min="0" class="form-control" name="number_of_ducks" placeholder="" required>
+              <div class="input-group-append">
+                <span class="input-group-text" id="basic-addon2" data-toggle="tooltip" data-placement="top" title="Approximately how many ducks did you feed over the course of your entire feeding session?"><b>?</b></span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <label>Time of Feeding:</label>
+            <div class="input-group">
+              <input type="time" class="form-control" name="feeding_time" placeholder="" required>
+              <div class="input-group-append">
+                <span class="input-group-text" id="basic-addon2" data-toggle="tooltip" data-placement="top" title="What time of day did you begin your duck feeding session?"><b>?</b></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Submit Feeding Data</button>
+      </form>
     </div>
+  </div>
 </div>
 {% endblock %}
