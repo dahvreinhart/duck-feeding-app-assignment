@@ -16,14 +16,16 @@
           $('[data-toggle="tooltip"]').tooltip();
       });
     </script>
-    <title>International Duck Feeding Habits Database</title>
+    <title>Quackers Please!</title>
   </head>
   <body>
     <div class="overlay">
       <div class="container header-container">
         <div class="row">
             <div class="col-xl">
-              <a class="csv-download-button" href="{{url_for('get_feeding_data_csv_download')}}"><button class="btn btn-success">Download Feeding Data</button></a>
+              <img src="{{url_for('static', filename='images/full_logo.png')}}" class="header-logo">
+              <img src="{{url_for('static', filename='images/duck_only_logo.png')}}" class="header-logo-responsive-swap">
+              <a class="csv-download-button" href="{{url_for('get_feeding_data_csv_download')}}"><button class="btn btn-primary">Download Feeding Data</button></a>
             </div>
         </div>
       </div>

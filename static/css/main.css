@@ -26,8 +26,18 @@ body {
   background-color: rgba(6,32,51,.6);
 }
 
+.header-logo {
+  height: 7rem;
+}
+
+.header-logo-responsive-swap {
+  height: 4rem;
+  display: none;
+}
+
 .csv-download-button {
   float: right;
+  margin-top: 2%;
 }
 
 label {
@@ -45,4 +55,25 @@ label {
 .tooltip-inner {
   max-width: 350px;
   width: 350px;
+}
+
+.form-row > label:after, .form-row > div > label:after {
+  content: "  *";
+  color: red;
+}
+
+@media screen and (max-width: 800px) {
+  .header-logo {
+    display: none;
+  }
+
+  .header-logo-responsive-swap {
+    display: inline-block;
+  }
+
+  .csv-download-button {
+    margin-top: 7%;
+    float: none;
+    margin-left: 10%;
+  }
 }
