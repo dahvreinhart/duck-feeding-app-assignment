@@ -1,6 +1,7 @@
 from datetime import datetime
 
 class DuckFeedingSession():
+    """ Model for a duck-feeding session submission from a user. """
     collection_name = 'duck_feeding_sessions'
 
     def __init__(self, initialization_data=None):
