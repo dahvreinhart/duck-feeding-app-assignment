@@ -6,6 +6,7 @@ from pytz import utc
 from apscheduler.schedulers.background import BackgroundScheduler
 import os
 import csv
+import random
 
 # Create Flask app
 template_dir = os.path.abspath('templates')
@@ -31,7 +32,8 @@ def render_form():
 
 @app.route('/after_successful_submission')
 def render_after_successful_submission():
-    return render_template('after_successful_submission.html')
+    random_photo_filename = "images/after_submission_photo_{}.jpeg".format(random.randint(1, 6))
+    return render_template('after_successful_submission.html', photo_filename=random_photo_filename)
 
 @app.route('/submit_feeding_data', methods=['POST', 'GET'])
 def submit_feeding_data():
