@@ -1,3 +1,5 @@
+/* --- BEGIN INDEX STYLES --- */
+
 body {
   background: url('../images/body-background.jpg') no-repeat center center fixed;
   -webkit-background-size: cover;
@@ -26,6 +28,10 @@ body {
   background-color: rgba(6,32,51,.6);
 }
 
+.body-container {
+  margin-top: 3rem;
+}
+
 .header-logo {
   height: 7rem;
 }
@@ -40,12 +46,13 @@ body {
   margin-top: 2%;
 }
 
+/* --- END INDEX STYLES --- */
+
+
+/* --- BEGIN SUBMISSION FORM STYLES --- */
+
 label {
   color: white;
-}
-
-.duck-feeding-data-form {
-  margin-top: 3rem;
 }
 
 .duck-feeding-data-form > .form-row {
@@ -62,7 +69,38 @@ label {
   color: red;
 }
 
+/* --- END SUBMISSION FORM STYLES --- */
+
+
+/* --- BEGIN AFTER SUBMISSION STYLES --- */
+
+.after-submission-photo {
+  height: 30rem;
+  border-radius: 0.5rem;
+  border: 1px solid black;
+  box-shadow: 0px 0px 50px white;
+}
+
+.after-submission-message {
+  text-align: center;
+}
+
+.after-submission-text {
+  color: white;
+  font-size: 18px;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* --- END AFTER SUBMISSION STYLES --- */
+
+
+/* --- BEGIN RESPONSIVE MEDIA STYLES --- */
+
 @media screen and (max-width: 800px) {
+  .header-container {
+    text-align: center;
+  }
   .header-logo {
     display: none;
   }
@@ -76,4 +114,10 @@ label {
     float: none;
     margin-left: 10%;
   }
+
+  .after-submission-photo {
+    height: 20rem;
+  }
 }
+
+/* --- END RESPONSIVE MEDIA STYLES --- */

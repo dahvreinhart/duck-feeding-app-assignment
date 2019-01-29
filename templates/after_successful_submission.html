@@ -2,10 +2,15 @@
 {% block body %}
 <div class="container">
   <div class="row">
-    <div class="col-md-6 col-md-offset-4">
-      <p>Feeding data successfully submitted!</p>
-      <p>Thank you for submitting your duck feeding data!</p>
-      <a href="/"><button class="btn btn-primary">Submit More Feeding Data</button></a>
+    <div class="col-xl after-submission-message">
+      <div><img src="{{url_for('static', filename='images/after_submission_photo_1.jpeg')}}" class="after-submission-photo"></div>
+      <div class="after-submission-text">
+        <p>Thanks! Your feeding session data has been successfully submitted.</p>
+        <p>Here is a hilarious duck meme just for you!</p>
+      </div>
+      <div class="submit-more-data">
+        <a href="/"><button class="btn btn-primary">Submit More Feeding Data</button></a>
+      </div>
     </div>
   </div>
 </div>
