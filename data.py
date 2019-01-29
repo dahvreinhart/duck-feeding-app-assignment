@@ -29,6 +29,9 @@ def render_form():
     # Render base template with input form
     return render_template('user_feeding_input_form.html')
 
+@app.route('/after_successful_submission')
+def render_after_successful_submission():
+    return render_template('after_successful_submission.html')
 
 @app.route('/submit_feeding_data', methods=['POST', 'GET'])
 def submit_feeding_data():
@@ -48,11 +51,17 @@ def submit_feeding_data():
         'make_recurring': bool(request.form.get('make_recurring', False))
     }
 
-    # Create a new feeding session object and write it to the database
-    new_feeding_session = DuckFeedingSession(form_data)
+    # Grab the database collection we will be writing to
     feedback_data = mongo.db.duck_feeding_sessions
+
+    # Create a new feeding session object
+    new_feeding_session = DuckFeedingSession(form_data)
+
+    # Write the new feeding seeion object to the databse
     feedback_data.insert(new_feeding_session.storable())
-    return render_template('after_successful_submission.html')
+
+    # Redirect the user to rendering function to protect against erroneous resubmissions via page reloads
+    return redirect("/after_successful_submission")
 
 
 @app.route('/get_feeding_data_csv_download', methods=['GET'])
