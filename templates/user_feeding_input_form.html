@@ -3,7 +3,12 @@
 <div class="container">
   <div class="row">
     <div class="col-md-8 offset-md-2">
+      <div class="submission-form-title">
+        <h5>Welcome to Quackers Please! The International Duck-Feeding Habits Database.</h5>
+        <p>Please submit your duck-feeding session data for today using the form below.</p>
+      </div>
       <form class="duck-feeding-data-form" method=POST action="{{url_for('submit_feeding_data')}}">
+        <p class="required-info-text"><span class="required-info-text-symbol">*</span>  required field</p>
         <div class="form-row">
           <label>Location:</label>
           <div class="input-group">
@@ -67,12 +72,12 @@
                 <option value="True">Yes</option>
               </select>
               <div class="input-group-append">
-                <span class="input-group-text" id="basic-addon2" data-toggle="tooltip" data-placement="top" title="Selecting 'yes' will place your submission on a one (1) week recurring schedule. This means, the input you submitted here will be automatically re-submitted for you once each day for the next 6 days (not including the current day). This could be useful if you feed the ducks in the exact same way each day. When using this feature, don't forget to come back this time next week if you wish to make another submission!"><b>?</b></span>
+                <span class="input-group-text" id="basic-addon2" data-toggle="tooltip" data-placement="top" title="Selecting 'yes' will place your submission on a daily recurring schedule for one (1) week. This means, the input you submitted here will be automatically re-submitted for you once each day for the next 6 days (not including the current day). Use this if you feed the ducks in the exact same way each day. When using this feature, don't forget to come back this time next week if you wish to make another submission!"><b>?</b></span>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-md-6 offset-md-3">
+        <div class="col-md-6 offset-md-3 submission-button">
           <button type="submit" class="btn btn-success btn-block">Submit Feeding Data</button>
         </div>
       </form>

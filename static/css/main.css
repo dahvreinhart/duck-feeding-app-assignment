@@ -18,6 +18,7 @@ body {
   bottom: 0;
   background-color: rgba(6,32,51,.6);
   z-index: 2;
+  overflow: auto;
 }
 
 .header-container {
@@ -55,18 +56,40 @@ label {
   color: white;
 }
 
+.submission-form-title {
+  color: white;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.required-info-text {
+  color: white;
+  font-size: 12px;
+  margin-bottom: 0;
+}
+
+.required-info-text-symbol {
+  color: red;
+  font-size: 16px;
+  vertical-align: text-top;
+}
+
 .duck-feeding-data-form > .form-row {
   margin-bottom: 2rem;
 }
 
 .tooltip-inner {
-  max-width: 350px;
-  width: 350px;
+  max-width: 300px;
+  width: 300px;
 }
 
 .form-row > label:after, .form-row > div > label:after {
   content: "  *";
   color: red;
+}
+
+.submission-button {
+  margin-bottom: 5rem;
 }
 
 /* --- END SUBMISSION FORM STYLES --- */
