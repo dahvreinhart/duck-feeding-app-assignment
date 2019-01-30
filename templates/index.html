@@ -22,21 +22,49 @@
     <div class="overlay">
       <div class="container header-container">
         <div class="row">
-            <div class="col-xl">
-              <img src="{{url_for('static', filename='images/full_logo.png')}}" class="header-logo">
-              <img src="{{url_for('static', filename='images/duck_only_logo.png')}}" class="header-logo-responsive-swap">
-              <a class="csv-download-button" href="{{url_for('get_feeding_data_csv_download')}}" data-toggle="tooltip" data-placement="left" title="Download a CSV file with all feeding session data from the database">
-                <button class="btn btn-primary">Download Feeding Data</button>
-              </a>
-            </div>
+          <div class="col-xl">
+            <img src="{{url_for('static', filename='images/full_logo.png')}}" class="header-logo">
+            <img src="{{url_for('static', filename='images/duck_only_logo.png')}}" class="header-logo-responsive-swap">
+            <a class="csv-download-button" href="{{url_for('get_feeding_data_csv_download')}}" data-toggle="tooltip" data-placement="left" title="Download a CSV file with all feeding session data from the database">
+              <button class="btn btn-primary">Download Feeding Data</button>
+            </a>
+          </div>
         </div>
       </div>
       <div class="body-container">
         {% block body %}{% endblock %}
       </div>
     </div>
-    <div class="footer col-xl">
-      THIS IS THE FOOTER
+    <div class="footer">
+      <div class="logo-and-copyright">
+        <div><img src="{{url_for('static', filename='images/duck_only_logo.png')}}" class="footer-logo"></div>
+        <div><span>&copy;</span> Quackers Please! 2019</div>
+      </div>
+      <div class="container footer-link-container">
+        <div class="row">
+          <div class="footer-lists offset-md-5">
+            <div class="footer-list">
+              <ul class="footer-link-list">
+                <li><a href="#">Meet The Team</a></li>
+                <li><a href="#">About The Project</a></li>
+                <li><a href="#">Project Motivation</a></li>
+              </ul>
+            </div>
+            <div class="footer-list">
+              <ul class="footer-link-list">
+                <li><a href="#">Materials</a></li>
+                <li><a href="#">Methods</a></li>
+                <li><a href="#">Future Plans</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="sponsor">
+        <div><img src="{{url_for('static', filename='images/sponsor_logo.png')}}" class="sponsor-image"></div>
+        <div><span>Thank-you to our major sponsor:</span></div>
+        <div><span>The University of Generic Learning!</span></div>
+      </div>
     </div>
   </body>
 </html>

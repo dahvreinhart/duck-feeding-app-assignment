@@ -6,12 +6,13 @@ body {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+  position: relative;
 }
 
 .overlay {
-  position: fixed;
+  display: block;
   width: 100%;
-  height: 100%;
+  min-height: 100%;
   top: 0;
   left: 0;
   right: 0;
@@ -22,15 +23,14 @@ body {
 }
 
 .header-container {
-  background-color: green;
-  color: blue;
   padding: 2rem;
   max-width: none;
   background-color: rgba(6,32,51,.6);
 }
 
 .body-container {
-  margin-top: 3rem;
+  margin-top: 2%;
+  margin-bottom: 25%;
 }
 
 .header-logo {
@@ -45,6 +45,66 @@ body {
 .csv-download-button {
   float: right;
   margin-top: 2%;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  height: 15%;
+  width: 100%;
+  background-color: rgba(6,32,51,.8);
+  color: white;
+  padding: 2rem;
+}
+
+.footer-logo {
+  height: 7rem;
+  margin-left: 1.5rem;
+}
+
+.footer-link-container {
+  text-align: center;
+  float: left;
+}
+
+.logo-and-copyright {
+  float: left;
+  font-size: 14px;
+}
+
+.footer-lists {
+  width: 100%;
+}
+
+.footer-list {
+  float: left;
+}
+
+.footer-link-list {
+  list-style: none;
+}
+
+.footer-link-list > li {
+  margin-bottom: 1rem;
+}
+
+.footer-link-list > li > a {
+  color: white;
+}
+
+.footer-link-list > li > a:hover {
+  text-decoration: none;
+  text-shadow: 0px 0px 20px white;
+}
+
+.sponsor {
+  float: right;
+  font-size: 14px;
+}
+
+.sponsor-image {
+  height: 6rem;
+  margin-left: 25%;
 }
 
 /* --- END INDEX STYLES --- */
@@ -89,7 +149,7 @@ label {
 }
 
 .submission-button {
-  margin-bottom: 5rem;
+  margin-bottom: 7rem;
 }
 
 /* --- END SUBMISSION FORM STYLES --- */
@@ -120,7 +180,29 @@ label {
 
 /* --- BEGIN RESPONSIVE MEDIA STYLES --- */
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 1600px) {
+
+  .footer {
+    padding: 1rem;
+  }
+
+  .footer-link-container {
+    width: 65%;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+
+  .footer-link-container {
+    width: 50%;
+  }
+
+  .footer-lists {
+    margin-left: 10%;
+  }
+}
+
+@media screen and (max-width: 830px) {
   .header-container {
     text-align: center;
   }
@@ -140,6 +222,22 @@ label {
 
   .after-submission-photo {
     height: 20rem;
+  }
+
+  .sponsor {
+    display: none;
+  }
+
+  .logo-and-copyright {
+    display: none;
+  }
+
+  .footer-lists {
+    margin-left: 0;
+  }
+
+  .footer-link-container {
+    width: 100%;
   }
 }
 
