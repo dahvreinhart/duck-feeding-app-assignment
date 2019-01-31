@@ -129,7 +129,7 @@ def generate_temp_csv(filename):
                 item.get('is_recurring', ''),
             ])
 
-@scheduler.scheduled_job(trigger='cron', hour=3, minute=30)
+@scheduler.scheduled_job(trigger='cron', hour=11, minute=30) # The scheduled job will run at 3:30am PST
 def process_recurring_submissions():
     """ Automatically submits duplicates of past submissions that are maked as recurring. """
     duck_feeding_sessions = mongo.db.duck_feeding_sessions
