@@ -19,6 +19,3 @@ class DuckFeedingSession():
 
     def storable(self):
         return self.__dict__
-
-    def __repr__(self):
-        print self.storable()

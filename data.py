@@ -10,13 +10,11 @@ import random
 
 # Create Flask app
 template_dir = os.path.abspath('templates')
-downloads_dir = os.path.abspath('temp_data_files')
 app = Flask(__name__, template_folder=template_dir)
 
 # Connect to Mongo and initialize database variables
 app.config['MONGO_DBNAME'] = 'freshworks_duck_feeding_app'
 app.config['MONGO_URI'] = 'mongodb://admin:Mlab1134206`@ds145359.mlab.com:45359/freshworks_duck_feeding_app'
-app.config['TEMP_DATA_FILES_FOLDER'] = downloads_dir
 mongo = PyMongo(app)
 
 # initialize scheduler for recurring submissions
@@ -77,11 +75,11 @@ def get_feeding_data_csv_download():
 
     # Read the csv data back into memory so that we can delete our temp file and save disk space
     csv_data = ''
-    with open("{}/{}".format(app.config['TEMP_DATA_FILES_FOLDER'], filename)) as data:
+    with open(filename) as data:
         csv_data = data.read()
 
     # Delete the temp file once we have the csv data to free disk space
-    os.remove("{}/{}".format(app.config['TEMP_DATA_FILES_FOLDER'], filename))
+    os.remove(filename)
 
     # Return the file to the user without redirecting them
     return Response(
@@ -93,7 +91,7 @@ def get_feeding_data_csv_download():
 
 def generate_temp_csv(filename):
     """ Generate a temp csv file and save it so that it can later be downloaded by the user. """
-    with open("{}/{}".format(app.config['TEMP_DATA_FILES_FOLDER'], filename), 'w') as csvfile:
+    with open(filename, 'w') as csvfile:
         csv_writer = csv.writer(csvfile, delimiter=',')
 
         # Write the column headers
@@ -156,5 +154,5 @@ def process_recurring_submissions():
 
     return True
 
-if __name__ == '__main__':
-    app.run(debug=True)
+#if __name__ == '__main__':
+    # app.run(debug=True)
