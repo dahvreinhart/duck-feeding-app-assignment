@@ -68,7 +68,8 @@ def submit_feeding_data():
 def get_feeding_data_csv_download():
     """ Handles the making of a csv file and the handoff of that file to the user. """
     # Create a unique filename from the current date
-    filename = "temp_data_file_{}.csv".format(datetime.now().strftime('%Y%m%d%H%M%S%f'))
+    timestamp_addition = datetime.now().strftime('%Y%m%d%H%M%S%f')
+    filename = "temp_data_file_{}.csv".format(timestamp_addition)
 
     # Generate a temporary csv file of feeding session data
     generate_temp_csv(filename)
@@ -85,7 +86,9 @@ def get_feeding_data_csv_download():
     return Response(
         csv_data,
         mimetype="text/csv",
-        headers={"Content-disposition": "attachment; filename={}".format(filename)}
+        headers={
+            "Content-disposition": "attachment; filename=quackers_please_feeding_data_{}.csv".format(timestamp_addition)
+        }
      )
 
 
@@ -103,7 +106,7 @@ def generate_temp_csv(filename):
             'FOOD TYPE',
             'SPECIFIC FOOD',
             'FOOD QUANTITY (g)',
-            'CREATED FROM RECURRING SUBMISSION'
+            'RECURRING SUBMISSION'
         ])
 
         # Fetch the submission objects from the database
